@@ -5,11 +5,23 @@ import object.Object;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CRUD {
     Connection conn;
     PreparedStatement preparedStatement;
+
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
+
+    private String msg;
 
     public void create(Object object){
         String query = "INSERT INTO livros (nome, autor, genero) VALUES (?, ?, ?)";
@@ -27,10 +39,43 @@ public class CRUD {
             preparedStatement.execute();
 
             preparedStatement.close();
+
+            setMsg("Objeto criado com SUCESSO!!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
+
+    public List<Object> read(){
+        String query = "SELECT * FROM livros LIMIT 10;";
+
+        List<Object> objects = new ArrayList<>();
+
+
+        conn = new ConnectionDB().connectionDB();
+
+        try {
+            preparedStatement = conn.prepareStatement(query);
+
+            try(ResultSet rs = preparedStatement.executeQuery()){
+                while(rs.next()){
+                    Object object = new Object();
+                    object.setId(rs.getInt("id"));
+                    object.setNome(rs.getString("nome"));
+                    object.setAutor(rs.getString("autor"));
+                    object.setGenero(rs.getString("genero"));
+                    objects.add(object);
+                }
+            }
+
+            preparedStatement.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return objects;
+    }
+
+    
 
     public void delete(int id){
         String query = "DELETE FROM livros WHERE id=?;";
@@ -45,6 +90,8 @@ public class CRUD {
             preparedStatement.execute();
 
             preparedStatement.close();
+
+            setMsg("Objeto deletado com SUCESSO!!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
