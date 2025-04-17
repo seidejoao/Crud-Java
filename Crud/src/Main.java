@@ -40,6 +40,15 @@ public class Main {
 
                 crud.create(object);
                 return;
+
+            case 4:
+                System.out.println("");
+                System.out.println("Qual livro deseja deletar?");
+                System.out.print(" >> "); int id = sc.nextInt();
+
+                crud.delete(id);
+                return;
+
             default:
                 System.out.println("Opção inválida");
         }

@@ -32,4 +32,21 @@ public class CRUD {
         }
     }
 
+    public void delete(int id){
+        String query = "DELETE FROM livros WHERE id=?;";
+
+        conn = new ConnectionDB().connectionDB();
+
+        try {
+            preparedStatement = conn.prepareStatement(query);
+
+            preparedStatement.setInt(1, id);
+
+            preparedStatement.execute();
+
+            preparedStatement.close();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
