@@ -75,7 +75,29 @@ public class CRUD {
         return objects;
     }
 
-    
+    public void update(Object object){
+        String query = "UPDATE livros SET nome = ?, autor=?, genero=? WHERE (id = ?);";
+        //trabalharei com prepared statement para uma segurança melhor
+
+        conn = new ConnectionDB().connectionDB();
+
+        try {
+            preparedStatement = conn.prepareStatement(query);
+
+            preparedStatement.setString(1, object.getNome());
+            preparedStatement.setString(2, object.getAutor());
+            preparedStatement.setString(3, object.getGenero());
+            preparedStatement.setInt(4, object.getId());
+
+            preparedStatement.execute();
+
+            preparedStatement.close();
+
+            setMsg("Objeto alterado com SUCESSO!!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     public void delete(int id){
         String query = "DELETE FROM livros WHERE id=?;";
