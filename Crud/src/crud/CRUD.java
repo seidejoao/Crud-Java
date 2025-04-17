@@ -72,6 +72,9 @@ public class CRUD {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+
+        setMsg("Livros listados com SUCESSO!!");
+
         return objects;
     }
 
@@ -85,7 +88,6 @@ public class CRUD {
             preparedStatement = conn.prepareStatement(query);
 
             preparedStatement.setString(1, object.getNome());
-            preparedStatement.setString(2, object.getAutor());
             preparedStatement.setString(3, object.getGenero());
             preparedStatement.setInt(4, object.getId());
 
