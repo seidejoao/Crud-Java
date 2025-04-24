@@ -40,7 +40,6 @@ public class CRUD {
 
             preparedStatement.close();
 
-            setMsg("Objeto criado com SUCESSO!!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
