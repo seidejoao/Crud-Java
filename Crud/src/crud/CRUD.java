@@ -13,6 +13,8 @@ public class CRUD {
     Connection conn;
     PreparedStatement preparedStatement;
 
+    private String msg;
+
     public String getMsg() {
         return msg;
     }
@@ -20,8 +22,6 @@ public class CRUD {
     public void setMsg(String msg) {
         this.msg = msg;
     }
-
-    private String msg;
 
     public void create(Object object){
         String query = "INSERT INTO livros (nome, autor, genero) VALUES (?, ?, ?)";
@@ -77,18 +77,54 @@ public class CRUD {
         return objects;
     }
 
-    public void update(Object object){
-        String query = "UPDATE livros SET nome = ?, autor=?, genero=? WHERE (id = ?);";
+    public void update(Object object, int id){
+        String queryTitulo            = "UPDATE livros SET nome = ? WHERE (id = ?);";
+        String queryAutor             = "UPDATE livros SET autor = ? WHERE (id = ?);";
+        String queryGenero            = "UPDATE livros SET genero = ?  WHERE (id = ?);";
+        String queryTituloAutor       = "UPDATE livros SET nome = ?, autor = ? WHERE (id = ?);";
+        String queryTituloGenero      = "UPDATE livros SET nome = ?, genero = ? WHERE (id = ?);";
+        String queryAutorGenero       = "UPDATE livros SET autor = ?, genero = ? WHERE (id = ?);";
+        String queryTituloAutorGenero = "UPDATE livros SET nome = ?, autor = ?, genero = ? WHERE (id = ?);";
         //trabalharei com prepared statement para uma segurança melhor
 
         conn = new ConnectionDB().connectionDB();
 
         try {
-            preparedStatement = conn.prepareStatement(query);
-
-            preparedStatement.setString(1, object.getNome());
-            preparedStatement.setString(3, object.getGenero());
-            preparedStatement.setInt(4, object.getId());
+            switch (id){
+                case 1:
+                    preparedStatement = conn.prepareStatement(queryTitulo);
+                    preparedStatement.setString(1, object.getNome());
+                    preparedStatement.setInt(2, object.getId());
+                case 2:
+                    preparedStatement = conn.prepareStatement(queryAutor);
+                    preparedStatement.setString(1, object.getAutor());
+                    preparedStatement.setInt(2, object.getId());
+                case 3:
+                    preparedStatement = conn.prepareStatement(queryGenero);
+                    preparedStatement.setString(1, object.getGenero());
+                    preparedStatement.setInt(2, object.getId());
+                case 4:
+                    preparedStatement = conn.prepareStatement(queryTituloAutor);
+                    preparedStatement.setString(1, object.getNome());
+                    preparedStatement.setString(2, object.getAutor());
+                    preparedStatement.setInt(3, object.getId());
+                case 5:
+                    preparedStatement = conn.prepareStatement(queryTituloGenero);
+                    preparedStatement.setString(1, object.getNome());
+                    preparedStatement.setString(2, object.getGenero());
+                    preparedStatement.setInt(3, object.getId());
+                case 6:
+                    preparedStatement = conn.prepareStatement(queryAutorGenero);
+                    preparedStatement.setString(1, object.getAutor());
+                    preparedStatement.setString(2, object.getGenero());
+                    preparedStatement.setInt(3, object.getId());
+                case 7:
+                    preparedStatement = conn.prepareStatement(queryTituloAutorGenero);
+                    preparedStatement.setString(1, object.getNome());
+                    preparedStatement.setString(2, object.getAutor());
+                    preparedStatement.setString(3, object.getGenero());
+                    preparedStatement.setInt(4, object.getId());
+            }
 
             preparedStatement.execute();
 
