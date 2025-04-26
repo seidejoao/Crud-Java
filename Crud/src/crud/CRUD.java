@@ -24,7 +24,7 @@ public class CRUD {
     }
 
     public void create(Object object){
-        String query = "INSERT INTO livros (nome, autor, genero) VALUES (?, ?, ?)";
+        String query = "INSERT INTO livros (titulo, autor, genero) VALUES (?, ?, ?)";
         //trabalharei com prepared statement para uma segurança melhor
 
         conn = new ConnectionDB().connectionDB();
@@ -32,7 +32,7 @@ public class CRUD {
         try {
             preparedStatement = conn.prepareStatement(query);
 
-            preparedStatement.setString(1, object.getNome());
+            preparedStatement.setString(1, object.getTitulo());
             preparedStatement.setString(2, object.getAutor());
             preparedStatement.setString(3, object.getGenero());
 
@@ -60,7 +60,7 @@ public class CRUD {
                 while(rs.next()){
                     Object object = new Object();
                     object.setId(rs.getInt("id"));
-                    object.setNome(rs.getString("nome"));
+                    object.setTitulo(rs.getString("titulo"));
                     object.setAutor(rs.getString("autor"));
                     object.setGenero(rs.getString("genero"));
                     objects.add(object);
@@ -77,54 +77,141 @@ public class CRUD {
         return objects;
     }
 
-    public void update(Object object, int id){
-        String queryTitulo            = "UPDATE livros SET nome = ? WHERE (id = ?);";
-        String queryAutor             = "UPDATE livros SET autor = ? WHERE (id = ?);";
-        String queryGenero            = "UPDATE livros SET genero = ?  WHERE (id = ?);";
-        String queryTituloAutor       = "UPDATE livros SET nome = ?, autor = ? WHERE (id = ?);";
-        String queryTituloGenero      = "UPDATE livros SET nome = ?, genero = ? WHERE (id = ?);";
-        String queryAutorGenero       = "UPDATE livros SET autor = ?, genero = ? WHERE (id = ?);";
-        String queryTituloAutorGenero = "UPDATE livros SET nome = ?, autor = ?, genero = ? WHERE (id = ?);";
+    public void updateTitulo(String titulo, int id){
+        conn = new ConnectionDB().connectionDB();
+
+        String queryTitulo = "UPDATE livros SET titulo = ? WHERE (id = ?);";
+
+        try {
+            preparedStatement = conn.prepareStatement(queryTitulo);
+            preparedStatement.setString(1, titulo);
+            preparedStatement.setInt   (2, id);
+
+            preparedStatement.execute();
+
+            preparedStatement.close();
+
+            setMsg("Titulo alterado com SUCESSO!!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void updateAutor(String autor, int id){
+        conn = new ConnectionDB().connectionDB();
+
+        String queryAutor = "UPDATE livros SET autor = ? WHERE (id = ?);";
+
+        try {
+            preparedStatement = conn.prepareStatement(queryAutor);
+            preparedStatement.setString(1, autor);
+            preparedStatement.setInt   (2, id);
+
+            preparedStatement.execute();
+
+            preparedStatement.close();
+
+            setMsg("Autor alterado com SUCESSO!!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void updateGenero(String genero, int id){
+        conn = new ConnectionDB().connectionDB();
+
+        String queryGenero = "UPDATE livros SET genero = ?  WHERE (id = ?);";
+
+        try {
+            preparedStatement = conn.prepareStatement(queryGenero);
+            preparedStatement.setString(1, genero);
+            preparedStatement.setInt   (2, id);
+
+            preparedStatement.execute();
+
+            preparedStatement.close();
+
+            setMsg("Objeto alterado com SUCESSO!!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void updateTituloAutor(String titulo, String autor, int id){
+        conn = new ConnectionDB().connectionDB();
+
+        String queryTituloAutor = "UPDATE livros SET titulo = ?, autor = ? WHERE (id = ?);";
+
+        try {
+            preparedStatement = conn.prepareStatement(queryTituloAutor);
+            preparedStatement.setString(1, titulo);
+            preparedStatement.setString(2, autor);
+            preparedStatement.setInt   (3, id);
+
+            preparedStatement.execute();
+
+            preparedStatement.close();
+
+            setMsg("Objeto alterado com SUCESSO!!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void updateTituloGenero(String titulo, String genero, int id){
+        conn = new ConnectionDB().connectionDB();
+
+        String queryTituloGenero = "UPDATE livros SET titulo = ?, genero = ? WHERE (id = ?);";
+
+        try {
+            preparedStatement = conn.prepareStatement(queryTituloGenero);
+            preparedStatement.setString(1, titulo);
+            preparedStatement.setString(2, genero);
+            preparedStatement.setInt   (3, id);
+
+            preparedStatement.execute();
+
+            preparedStatement.close();
+
+            setMsg("Objeto alterado com SUCESSO!!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void updateAutorGenero(String autor, String genero, int id){
+        conn = new ConnectionDB().connectionDB();
+
+        String queryAutorGenero = "UPDATE livros SET autor = ?, genero = ? WHERE (id = ?);";
+
+        try {
+            preparedStatement = conn.prepareStatement(queryAutorGenero);
+            preparedStatement.setString(1, autor);
+            preparedStatement.setString(2, genero);
+            preparedStatement.setInt   (3, id);
+
+            preparedStatement.execute();
+
+            preparedStatement.close();
+
+            setMsg("Objeto alterado com SUCESSO!!");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void updateTituloAutorGenero(Object object){
+        String queryTituloAutorGenero = "UPDATE livros SET titulo = ?, autor = ?, genero = ? WHERE (id = ?);";
         //trabalharei com prepared statement para uma segurança melhor
 
         conn = new ConnectionDB().connectionDB();
 
         try {
-            switch (id){
-                case 1:
-                    preparedStatement = conn.prepareStatement(queryTitulo);
-                    preparedStatement.setString(1, object.getNome());
-                    preparedStatement.setInt(2, object.getId());
-                case 2:
-                    preparedStatement = conn.prepareStatement(queryAutor);
-                    preparedStatement.setString(1, object.getAutor());
-                    preparedStatement.setInt(2, object.getId());
-                case 3:
-                    preparedStatement = conn.prepareStatement(queryGenero);
-                    preparedStatement.setString(1, object.getGenero());
-                    preparedStatement.setInt(2, object.getId());
-                case 4:
-                    preparedStatement = conn.prepareStatement(queryTituloAutor);
-                    preparedStatement.setString(1, object.getNome());
-                    preparedStatement.setString(2, object.getAutor());
-                    preparedStatement.setInt(3, object.getId());
-                case 5:
-                    preparedStatement = conn.prepareStatement(queryTituloGenero);
-                    preparedStatement.setString(1, object.getNome());
-                    preparedStatement.setString(2, object.getGenero());
-                    preparedStatement.setInt(3, object.getId());
-                case 6:
-                    preparedStatement = conn.prepareStatement(queryAutorGenero);
-                    preparedStatement.setString(1, object.getAutor());
-                    preparedStatement.setString(2, object.getGenero());
-                    preparedStatement.setInt(3, object.getId());
-                case 7:
-                    preparedStatement = conn.prepareStatement(queryTituloAutorGenero);
-                    preparedStatement.setString(1, object.getNome());
-                    preparedStatement.setString(2, object.getAutor());
-                    preparedStatement.setString(3, object.getGenero());
-                    preparedStatement.setInt(4, object.getId());
-            }
+            preparedStatement = conn.prepareStatement(queryTituloAutorGenero);
+            preparedStatement.setString(1, object.getTitulo());
+            preparedStatement.setString(2, object.getAutor());
+            preparedStatement.setString(3, object.getGenero());
+            preparedStatement.setInt   (4, object.getId());
 
             preparedStatement.execute();
 

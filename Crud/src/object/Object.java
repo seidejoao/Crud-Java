@@ -3,14 +3,14 @@ package object;
 public class Object {
 
     private int id; // não mexer
-    private String nome;
+    private String titulo;
     private String autor;
     private String genero;
-    public String getNome() {
-        return nome;
+    public String getTitulo() {
+        return titulo;
     }
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setTitulo(String titulo) {
+        this.titulo = titulo;
     }
     public String getAutor() {
         return autor;
@@ -33,7 +33,7 @@ public class Object {
     @Override
     public String toString() {
         return  "Id: "+ id +
-                ", Título: " + nome +
+                ", Título: " + titulo +
                 ", Autor: " + autor +
                 ", Gênero: " + genero;
     }

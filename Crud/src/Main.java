@@ -43,7 +43,7 @@ public class Main {
                             break;
                         }
                     } while (true);
-                    object.setNome(nomeLivro);
+                    object.setTitulo(nomeLivro);
 
                     String Autor;
                     do {
@@ -97,10 +97,9 @@ public class Main {
                         System.out.println("De qual 'id' quer alterar?");
                         System.out.print(" >> ");
                         id = sc.nextInt();
-                        object.setId(id);
 
                         for (Object i : obj) {
-                            if (i.getId() == object.getId()){
+                            if (i.getId() == id){
                                 existe = true;
                                 break;
                             }
@@ -121,7 +120,7 @@ public class Main {
                                 int idUpdate = sc.nextInt();
                                 sc.nextLine();
 
-                                String nomeCorrigidoLivro;
+                                String tituloCorrigidoLivro;
                                 String corrigidoAutor;
                                 String corrigidoGenero;
                                 switch (idUpdate) {
@@ -129,14 +128,14 @@ public class Main {
                                         do {
                                             System.out.println("Qual o título correto do Livro?");
                                             System.out.print(" >> ");
-                                            nomeCorrigidoLivro = sc.nextLine();
-                                            if (nomeCorrigidoLivro.isEmpty()){
+                                            tituloCorrigidoLivro = sc.nextLine();
+                                            if (tituloCorrigidoLivro.isEmpty()){
                                                 System.out.println("O valor NÃO pode ser nulo ou vazio!!");
                                             } else {
                                                 break;
                                             }
                                         } while (true);
-                                        object.setNome(nomeCorrigidoLivro);
+                                        crud.updateTitulo(tituloCorrigidoLivro, id);
                                         break;
                                     case 2:
                                         do {
@@ -149,7 +148,7 @@ public class Main {
                                                 break;
                                             }
                                         } while (true);
-                                        object.setAutor(corrigidoAutor);
+                                        crud.updateAutor(corrigidoAutor, id);
                                         break;
                                     case 3:
                                         do {
@@ -162,20 +161,19 @@ public class Main {
                                                 break;
                                             }
                                         } while (true);
-                                        object.setGenero(corrigidoGenero);
+                                        crud.updateGenero(corrigidoGenero, id);
                                         break;
                                     case 4:
                                         do {
                                             System.out.println("Qual o título correto do livro do Livro?");
                                             System.out.print(" >> ");
-                                            nomeCorrigidoLivro = sc.nextLine();
-                                            if (nomeCorrigidoLivro.isEmpty()){
+                                            tituloCorrigidoLivro = sc.nextLine();
+                                            if (tituloCorrigidoLivro.isEmpty()){
                                                 System.out.println("O valor NÃO pode ser nulo ou vazio!!");
                                             } else {
                                                 break;
                                             }
                                         } while (true);
-                                        object.setNome(nomeCorrigidoLivro);
 
                                         do {
                                             System.out.println("Qual o autor correto do Livro?");
@@ -187,20 +185,19 @@ public class Main {
                                                 break;
                                             }
                                         } while (true);
-                                        object.setAutor(corrigidoAutor);
+                                        crud.updateTituloAutor(tituloCorrigidoLivro, corrigidoAutor, id);
                                         break;
                                     case 5:
                                         do {
                                             System.out.println("Qual o título correto do livro do Livro?");
                                             System.out.print(" >> ");
-                                            nomeCorrigidoLivro = sc.nextLine();
-                                            if (nomeCorrigidoLivro.isEmpty()){
+                                            tituloCorrigidoLivro = sc.nextLine();
+                                            if (tituloCorrigidoLivro.isEmpty()){
                                                 System.out.println("O valor NÃO pode ser nulo ou vazio!!");
                                             } else {
                                                 break;
                                             }
                                         } while (true);
-                                        object.setNome(nomeCorrigidoLivro);
 
                                         do {
                                             System.out.println("Qual o gênero correto do Livro?");
@@ -212,7 +209,7 @@ public class Main {
                                                 break;
                                             }
                                         } while (true);
-                                        object.setGenero(corrigidoGenero);
+                                        crud.updateTituloGenero(tituloCorrigidoLivro, corrigidoGenero, id);
                                         break;
                                     case 6:
                                         do {
@@ -225,7 +222,6 @@ public class Main {
                                                 break;
                                             }
                                         } while (true);
-                                        object.setAutor(corrigidoAutor);
 
                                         do {
                                             System.out.println("Qual o gênero correto do Livro?");
@@ -237,20 +233,20 @@ public class Main {
                                                 break;
                                             }
                                         } while (true);
-                                        object.setGenero(corrigidoGenero);
+                                        crud.updateAutorGenero(corrigidoAutor, corrigidoGenero, id);
                                         break;
                                     case 7:
                                         do {
                                             System.out.println("Qual o título correto do livro do Livro?");
                                             System.out.print(" >> ");
-                                            nomeCorrigidoLivro = sc.nextLine();
-                                            if (nomeCorrigidoLivro.isEmpty()){
+                                            tituloCorrigidoLivro = sc.nextLine();
+                                            if (tituloCorrigidoLivro.isEmpty()){
                                                 System.out.println("O valor NÃO pode ser nulo ou vazio!!");
                                             } else {
                                                 break;
                                             }
                                         } while (true);
-                                        object.setNome(nomeCorrigidoLivro);
+                                        object.setTitulo(tituloCorrigidoLivro);
 
                                         do {
                                             System.out.println("Qual o autor correto do Livro?");
@@ -275,13 +271,13 @@ public class Main {
                                             }
                                         } while (true);
                                         object.setGenero(corrigidoGenero);
+                                        crud.updateTituloAutorGenero(object);
+                                        crud.setMsg("\nOBJETO ALTERADO COM SUCESSO!!\n");
                                         break;
                                     default:
                                         System.out.println("Opção inválida");
                                         continue;
                                 }
-                                crud.update(object, idUpdate);
-                                crud.setMsg("\nOBJETO ALTERADO COM SUCESSO!!\n");
 
                                 System.out.println(crud.getMsg());
                                 return;
