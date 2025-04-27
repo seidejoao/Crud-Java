@@ -21,7 +21,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         CRUD crud = new CRUD();
         Object object = new Object();
-        List<Object> obj;
+        List<Object> lista;
         int id;
         boolean existe = false;
 
@@ -78,27 +78,42 @@ public class Main {
                     break;
 
                 case 2:
-                    obj = crud.read();
-                    for (Object i : obj) {
-                        System.out.println(i);
+                    lista = crud.read();
+                    if(lista.isEmpty()){
+                        crud.setMsg("\nNÃO EXISTEM OBJETOS!!\n");
+                        System.out.println(crud.getMsg());
+                        break;
+                    } else if(lista == null){
+                        crud.setMsg("\nNÃO EXISTEM OBJETOS!!\n");
+                        System.out.println(crud.getMsg());
+                        break;
+                    } else if(lista.size() == 0){
+                        crud.setMsg("\nNÃO EXISTEM OBJETOS!!\n");
+                        System.out.println(crud.getMsg());
+                        break;
+                    } else{
+                        for (Object i : lista) {
+                            System.out.println(i);
+                        }
+
+                        crud.setMsg("\nOBJETOS LISTADOS COM SUCESSO!!\n");
+
+                        System.out.println(crud.getMsg());
+
+                        break;
                     }
-
-                    crud.setMsg("\nOBJETOS LISTADOS COM SUCESSO!!\n");
-
-                    System.out.println(crud.getMsg());
-                    break;
 
                 case 3:
                     while (true) {
-                        obj = crud.read();
-                        for (Object i : obj) {
+                        lista = crud.read();
+                        for (Object i : lista) {
                             System.out.println(i);
                         }
                         System.out.println("De qual 'id' quer alterar?");
                         System.out.print(" >> ");
                         id = sc.nextInt();
 
-                        for (Object i : obj) {
+                        for (Object i : lista) {
                             if (i.getId() == id){
                                 existe = true;
                                 break;
@@ -286,9 +301,9 @@ public class Main {
                     }
 
                 case 4:
-                    obj = crud.read();
+                    lista = crud.read();
                     while (true) {
-                        for (Object i : obj) {
+                        for (Object i : lista) {
                             System.out.println(i);
                         }
                         System.out.println("\nQual livro pelo 'id' deseja deletar?");
@@ -297,7 +312,7 @@ public class Main {
 
                         object.setId(id);
 
-                        for (Object i : obj) {
+                        for (Object i : lista) {
                             if (i.getId() == object.getId()){
                                 existe = true;
                                 break;

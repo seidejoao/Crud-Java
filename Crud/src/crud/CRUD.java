@@ -71,9 +71,6 @@ public class CRUD {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-
-        setMsg("Livros listados com SUCESSO!!");
-
         return objects;
     }
 
@@ -90,8 +87,6 @@ public class CRUD {
             preparedStatement.execute();
 
             preparedStatement.close();
-
-            setMsg("Titulo alterado com SUCESSO!!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -110,8 +105,6 @@ public class CRUD {
             preparedStatement.execute();
 
             preparedStatement.close();
-
-            setMsg("Autor alterado com SUCESSO!!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -130,8 +123,6 @@ public class CRUD {
             preparedStatement.execute();
 
             preparedStatement.close();
-
-            setMsg("Objeto alterado com SUCESSO!!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -151,8 +142,6 @@ public class CRUD {
             preparedStatement.execute();
 
             preparedStatement.close();
-
-            setMsg("Objeto alterado com SUCESSO!!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -172,8 +161,6 @@ public class CRUD {
             preparedStatement.execute();
 
             preparedStatement.close();
-
-            setMsg("Objeto alterado com SUCESSO!!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -193,8 +180,6 @@ public class CRUD {
             preparedStatement.execute();
 
             preparedStatement.close();
-
-            setMsg("Objeto alterado com SUCESSO!!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -216,8 +201,6 @@ public class CRUD {
             preparedStatement.execute();
 
             preparedStatement.close();
-
-            setMsg("Objeto alterado com SUCESSO!!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
@@ -236,8 +219,6 @@ public class CRUD {
             preparedStatement.execute();
 
             preparedStatement.close();
-
-            setMsg("Objeto deletado com SUCESSO!!");
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
